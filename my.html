@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="my.css">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  
+    <title>Document</title>
+</head>
+<body onload="actualizar()">
+ 
+    <div class ="separacion">
+    <main class="main">
+    <h1>calculadora de deudas</h1> 
+    <form class= "form1">
+        <label for="ingresos">ingresos mensuales</label>
+        <input id="ingresos_mensual" type="number" class="form-primary">
+       
+</div> <input type="button" onclick="guardarPresupuesto()" class="btn btn-success" value="crear Presupuesto">
+    </main>
+  </form>
+    <div class="container">
+        <form id="formGastos">
+         <div class="form-group">
+          <p>
+            <label>Entre su Nombre:</label> <br>
+            <input id="producto" class="form-control" type="text" placeholder="Nombre..."><br>
+          </p>
+          <p>
+            <label>costo de producto</label> <br>
+            <input id="costo" class="form-control" type="text" placeholder="costo de deuda"><br>
+          </p>
+          
+          <button id="adicionar" class="btn btn-success" type="button">Adicionar a la tabla</button>
+        </div>
+      </form>
+      
+    <p form  id="deudas-form">
+        <laben la Tabla:>
+        <div id="adicionados"class="form2"></div>
+        </laben>
+      </p>
+      <table  id="mytable" class="table table-bordered table-hover ">
+        
+        <tr>
+            <th>Nobmre</th>
+            <th>costo</th>
+            
+            <th>Eliminar</th>
+        
+          </tr>
+        </table>
+        
+            <button onclick="calcular()"  class="btn btn-success" type="button">calcular</button>
+
+        
+</main>  
+<script src ="my.js"></script>
+</body>
+</html>
