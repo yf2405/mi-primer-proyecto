@@ -1,45 +1,56 @@
 "use strict";
 
 //(dom
+// inicializamo la variable restante en cero
 var restante = 0;
 
 var guardarPresupuesto = function guardarPresupuesto() {
   var presupuesto = parseInt(document.getElementById("ingresos_mensual").value);
 
   if (presupuesto < 1 || isNaN(presupuesto)) {
-    console.log("error presupuesto no valido");
+    alert("error presupuesto no valido");
     return;
-  }
+  } // se guarda los datos de presupuesto y gastos 
+
 
   localStorage.setItem("presupuesto", presupuesto);
   localStorage.setItem("gastos", JSON.stringify([]));
   actualizar();
-};
+}; //la funcion actualizar optenemos nuevamente un presupuesto que se abia enbiado con local set
+
 
 actualizar = function actualizar() {
-  var presupuesto = localStorage.getItem("presupuesto");
+  var presupuesto = localStorage.getItem("presupuesto"); // el restante llevara lo que se lleva del presupuesto
+
   restante = presupuesto;
 
   if (!presupuesto) {
     console.log("no hay presupuesto");
+    /*
+       divcontrolpresupuesto.innerHTML= `<div class="controlgastos">
+        "NO HAY PRESUPUESTO"
+       </div>`
+    */
   } else {
-    console.log("presupuesto total: ".concat(presupuesto));
-    nuevalista();
+    //let divcontrolpresupuesto = document.getElementById("#controlgastos");
+    console.log("presupuesto total: ".concat(presupuesto)); // divcontrolpresupuesto.innerHTML= `<div class="controlgastos">
+    // presupuesto total: ${presupuesto}
+    //</div>`
   }
-};
+}; // optenemos gastos 
 
-var nuevalista = function nuevalista() {
-  var gastos = JSON.parse(localStorage.getItem("gastos"));
-  totalGstos = 0;
-  gastos.map(function (gastos) {
-    totalGstos += parseInt(gastos.costo);
-  });
-  console.log("Total de gastos " + totalGstos);
-  var myform = restante - totalGstos;
-  console.log("restante: " + myform);
-  alert("restante: " + myform);
-};
 
+var gastos = JSON.parse(localStorage.getItem("gastos")); // iniviamos total gastos en cero  
+
+totalGstos = 0;
+gastos.map(function (gastos) {
+  totalGstos += parseInt(gastos.costo); // se suma total gastos y gastos totales
+});
+console.log("Total de gastos " + totalGstos); // la operacion del restante
+
+var myform = restante - totalGstos;
+console.log("restante: " + myform);
+alert("restante: " + myform);
 $('#adicionar').click(function () {
   var producto = document.getElementById("producto").value;
   var costo = parseInt(document.getElementById("costo").value);
@@ -61,12 +72,11 @@ $('#adicionar').click(function () {
   var gastos = JSON.parse(localStorage.getItem("gastos"));
   gastos.push(nuevoGasto);
   localStorage.setItem("gastos", JSON.stringify(gastos));
-  nuevalista();
   document.getElementById("formGastos").reset();
   console.log(nuevoGasto);
   var i = 1; //contador para asignar id al boton que borrara la fila
 
-  var fila = '<tr id="row' + i + '"><td>' + producto + '</td><td>' + costo + '</td><td><button onclick="deleted()"  type="button" name="remove" id="' + i + '" class="btn btn-danger btn_remove">Quitar</button></td></tr>'; //esto seria lo que contendria la fila
+  var fila = '<tr id="row' + i + '"><td>' + producto + '</td><td>' + costo + '</td><td>' + myform + '</td><td><button onclick="deleted()"  type="button" name="remove" id="' + i + '" class="btn btn-danger btn_remove">Quitar</button></td></tr>'; //esto seria lo que contendria la fila
 
   i++;
   $('#mytable tr:first').after(fila);
@@ -88,6 +98,11 @@ $(document).on('click', '.btn_remove', function () {
   var nFilas = $("#mytable tr").length;
   $("#adicionados").append(nFilas - 1);
 });
+
+var resetear = function resetear() {
+  localStorage.clear();
+  location.reload(true);
+};
 /*
 
   let costotodo = 0
